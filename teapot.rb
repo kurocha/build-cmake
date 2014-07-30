@@ -8,6 +8,9 @@ define_target "build-cmake" do |target|
 			
 			parameter :build_prefix
 			
+			# Arguments to provide to cmake:
+			parameter :arguments
+			
 			output :make_file, implicit: true do |arguments|
 				Path.join(arguments[:build_prefix], "Makefile")
 			end
@@ -18,6 +21,7 @@ define_target "build-cmake" do |target|
 				run!("cmake", "-G", "Unix Makefiles",
 					"-DCMAKE_INSTALL_PREFIX:PATH=#{environment[:install_prefix]}",
 					"-DCMAKE_PREFIX_PATH=#{environment[:install_prefix]}",
+					*arguments[:arguments],
 					arguments[:source],
 					chdir: arguments[:build_prefix]
 				)
