@@ -9,7 +9,7 @@ define_target "build-cmake" do |target|
 			parameter :build_prefix
 			
 			# Arguments to provide to cmake:
-			parameter :arguments
+			parameter :arguments, optional: true
 			
 			output :make_file, implicit: true do |arguments|
 				Path.join(arguments[:build_prefix], "Makefile")
