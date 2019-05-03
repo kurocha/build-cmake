@@ -22,11 +22,11 @@ define_target "build-cmake" do |target|
 			end
 			
 			apply do |arguments|
-				fs.mkpath arguments[:build_prefix]
+				mkpath arguments[:build_prefix]
 				
 				run!("cmake", "-G", "Unix Makefiles",
-					"-DCMAKE_INSTALL_PREFIX:PATH=#{environment[:install_prefix]}",
-					"-DCMAKE_PREFIX_PATH=#{environment[:install_prefix]}",
+					"-DCMAKE_INSTALL_PREFIX:PATH=#{arguments[:build_prefix]}",
+					"-DCMAKE_PREFIX_PATH=#{arguments[:build_prefix]}",
 					# On some systems this gets set to lib64 or something equally useless.
 					"-DCMAKE_INSTALL_LIBDIR=lib",
 					*arguments[:arguments],
