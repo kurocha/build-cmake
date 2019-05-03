@@ -13,8 +13,7 @@ define_target "build-cmake" do |target|
 			
 			# Ensure that incoming libraries are dependencies of this target:
 			input :dependencies, implicit: true do |arguments|
-				# Extract include directories:
-				environment[:ldflags].select{|option| option.kind_of? Files::Path}
+				environment[:linkflags]&.select{|option| option.kind_of? Files::Path}
 			end
 			
 			output :make_file, implicit: true do |arguments|
